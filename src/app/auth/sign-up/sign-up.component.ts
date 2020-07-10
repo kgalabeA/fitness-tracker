@@ -1,3 +1,4 @@
+import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
@@ -7,20 +8,26 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-maxDate;
-  constructor() {
+  maxDate;
+  constructor(private authService:AuthService) {
+    this.maxDate = new Date();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
 
-  const currentYear = new Date().getFullYear();
-  this.maxDate=currentYear- 18;
-  console.log('--------->',this.maxDate);
   }
 
   ngOnInit(): void {
 
-
   }
-  onSubmit(form:NgForm){
-    console.log(form);
+  onSubmit(form: NgForm) {
+
+    if (form.invalid) {
+      console.log('Invalid');
+      return;
+    }
+    this.authService.registerUser({
+      email:form.value.email,
+      password:form.value.passoword
+    });
 
   }
 }
