@@ -10,6 +10,7 @@
       <mat-hint>Password should be at least 6 characters long</mat-hint>
       <mat-error>Must have at least 6 characters long</mat-error>
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="l.invalid">Log In</button>
+    <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="l.invalid">Log In</button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
 </section>
